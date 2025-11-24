@@ -3,42 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Tracker 2025 - Lengkap</title>
+    <title>Financial Tracker 2025 - Finners Daily</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
+        /* --- CSS STYLING (DARK MODE) --- */
         :root {
-            --primary: #4e73df;
-            --success: #1cc88a;
-            --danger: #e74a3b;
-            --bg: #f3f4f6;
-            --card-bg: #ffffff;
+            /* Skema Warna Dark Mode */
+            --primary: #8C9EFF; /* Biru/Ungu Cerah (Saldo & Utama) */
+            --success: #3DDC84; /* Hijau Mint (Pemasukan) */
+            --danger: #FF6B6B; /* Merah Terang (Pengeluaran) */
+            --bg: #1A1A2E; /* Latar Belakang Sangat Gelap */
+            --card-bg: #2C2C4E; /* Latar Belakang Kartu Gelap */
+            --text-light: #E0E0FF; /* Teks Utama Cerah */
+            --text-muted: #B0B0C4; /* Teks Sekunder/Pudar */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg); color: #333; padding: 20px; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-light); /* Warna teks utama jadi terang */
+            padding: 20px; 
+        }
         .container { max-width: 1000px; margin: 0 auto; }
 
-        /* HEADER */
+        /* HEADER & LOGO */
         header {
-            background: var(--card-bg); padding: 20px; border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px;
-            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg); 
+            padding: 20px; 
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3); /* Shadow lebih gelap */
+            margin-bottom: 20px;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
         }
-        select { padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer; }
+        .app-title-section {
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+        }
+        .app-logo {
+            height: 150px; /* Dikecilkan agar lebih rapi di header Dark Mode */
+            width: auto; 
+        }
+        h1 { font-size: 3rem; color: var(--primary); }
+        select { 
+            padding: 8px 12px; 
+            border-radius: 8px; 
+            border: 1px solid #444; 
+            cursor: pointer; 
+            background: var(--bg); /* Select mengikuti background gelap */
+            color: var(--text-light);
+        }
 
         /* CARDS */
         .cards-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px;
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+            margin-bottom: 20px;
         }
         @media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; } }
         
         .card {
-            background: var(--card-bg); padding: 20px; border-radius: 15px;
-            text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            background: var(--card-bg); 
+            padding: 20px; 
+            border-radius: 15px;
+            text-align: center; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
         }
-        .card h3 { font-size: 0.9rem; color: #888; margin-bottom: 5px; }
+        .card:hover { transform: translateY(-3px); }
+
+        .card h3 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px; }
         .card p { font-size: 1.3rem; font-weight: 600; }
         .c-in { color: var(--success); }
         .c-out { color: var(--danger); }
@@ -46,49 +85,88 @@
 
         /* MAIN CONTENT */
         .content-grid {
-            display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px;
+            display: grid; 
+            grid-template-columns: 1.2fr 0.8fr; 
+            gap: 20px;
         }
         @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; } }
 
         .box {
-            background: var(--card-bg); padding: 25px; border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 20px;
+            background: var(--card-bg); 
+            padding: 25px; 
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+            margin-bottom: 20px;
         }
-        .box h2 { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px; font-size: 1.1rem; }
+        .box h2 { 
+            border-bottom: 1px solid #444; /* Garis pemisah lebih gelap */
+            padding-bottom: 10px; 
+            margin-bottom: 20px; 
+            font-size: 1.1rem; 
+            color: var(--text-light);
+        }
 
         /* FORM */
-        .form-group { margin-bottom: 15px; }
         .form-row { display: flex; gap: 10px; }
-        input, select.full { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; }
-        button.btn-save {
-            width: 100%; padding: 12px; background: var(--primary); color: white;
-            border: none; border-radius: 8px; font-weight: 600; cursor: pointer;
+        input, select.full { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #444; 
+            border-radius: 8px; 
+            margin-bottom: 10px; 
+            background: var(--bg); /* Input mengikuti background gelap */
+            color: var(--text-light);
         }
-        button.btn-save:hover { background: #3a5bbd; }
+        button.btn-save {
+            width: 100%; 
+            padding: 12px; 
+            background: var(--primary); 
+            color: #1A1A2E; /* Teks tombol gelap agar kontras */
+            border: none; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button.btn-save:hover { background: #B0BFFF; }
 
         /* LIST */
         ul { list-style: none; max-height: 350px; overflow-y: auto; }
         li {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 10px 0; 
+            border-bottom: 1px solid #3A3A5E; /* Garis pemisah list */
         }
         li:last-child { border: none; }
-        .li-left h4 { font-size: 0.9rem; }
-        .li-left span { font-size: 0.75rem; color: #aaa; }
+        .li-left h4 { font-size: 0.9rem; color: var(--text-light); }
+        .li-left span { font-size: 0.75rem; color: var(--text-muted); }
         .btn-del {
-            margin-left: 10px; background: #ffecec; color: red; border: none;
-            padding: 5px 8px; border-radius: 5px; cursor: pointer; font-size: 0.7rem;
+            margin-left: 10px; 
+            background: #4E2C2C; /* Background tombol hapus gelap */
+            color: var(--danger); 
+            border: none;
+            padding: 5px 8px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 0.7rem;
+            transition: background 0.2s;
         }
+        .btn-del:hover { background: #603838; }
 
         /* CHART */
         .chart-wrap { position: relative; height: 300px; width: 100%; }
     </style>
 </head>
-<body>
+<body onload="initApp()">
 
 <div class="container">
     <header>
-        <h1 style="color:var(--primary)">📊 Tracker Keuangan</h1>
+        <div class="app-title-section">
+            <img src="finners-daily-logo.png" alt="Finners Daily Logo" class="app-logo">
+            <h1 style="color:var(--primary)">Financial Daily Trackers</h1>
+        </div>
         <select id="monthSelect" onchange="renderApp()">
             <option value="0">Januari 2025</option>
             <option value="1">Februari 2025</option>
@@ -142,9 +220,9 @@
             </div>
 
             <div class="box">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
-                    <h2 style="border:none; margin:0;">📝 Riwayat</h2>
-                    <button onclick="resetData()" style="font-size:0.7rem; padding:5px; cursor:pointer;">Reset</button>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #444; padding-bottom:10px;">
+                    <h2 style="border:none; margin:0; color:var(--text-light);">📝 Riwayat</h2>
+                    <button onclick="resetData()" style="font-size:0.7rem; padding:5px 8px; cursor:pointer; background:#5A5A88; color:white; border:none; border-radius:5px;">Reset Semua Data</button>
                 </div>
                 <ul id="trxList">
                     </ul>
@@ -156,13 +234,16 @@
                 <h2>📉 Peta Keuangan (In & Out)</h2>
                 
 
+
+
 [Image of financial pie chart breakdown]
+
 
                 <div class="chart-wrap">
                     <canvas id="financeChart"></canvas>
                 </div>
-                <div style="margin-top:15px; text-align:center; font-size:0.8rem; color:#666;">
-                    <span style="color:#1cc88a">● Pemasukan</span> | <span style="color:#e74a3b">● Pengeluaran</span>
+                <div style="margin-top:15px; text-align:center; font-size:0.8rem; color:var(--text-muted);">
+                    <span style="color:var(--success)">● Pemasukan</span> | <span style="color:var(--danger)">● Pengeluaran</span>
                 </div>
             </div>
         </div>
@@ -172,16 +253,15 @@
 <script>
     // --- 1. SETUP DATA & KONFIGURASI ---
     
-    // Daftar Kategori Spesifik
     const incomeCats = ['Gaji', 'Bonus', 'Hasil Usaha', 'Investasi', 'Pemasukan Lain'];
     const expenseCats = ['Makanan', 'Transport', 'Belanja', 'Tagihan', 'Cicilan', 'Lainnya'];
     
-    // Warna Chart (Hijau/Biru untuk Income, Merah/Kuning untuk Expense)
-    const incomeColors = ['#1cc88a', '#36b9cc', '#4e73df', '#2c9faf', '#858796']; 
-    const expenseColors = ['#e74a3b', '#f6c23e', '#e74a3b', '#fd7e14', '#e02d1b', '#858796'];
+    // Warna Chart disesuaikan untuk Dark Mode (warna cerah yang kontras)
+    const incomeColors = ['#3DDC84', '#66FFB3', '#94FFC8', '#C2FFE0', '#E5FFEF']; 
+    const expenseColors = ['#FF6B6B', '#FF8C8C', '#FFAFAF', '#FFD1D1', '#FFE0E0'];
 
     // Ambil data dari LocalStorage
-    let transactions = JSON.parse(localStorage.getItem('fin_tracker_2025_v2')) || [];
+    let transactions = [];
 
     // Setup Chart JS
     const ctx = document.getElementById('financeChart').getContext('2d');
@@ -193,21 +273,35 @@
                 data: [],
                 backgroundColor: [],
                 borderWidth: 2,
-                borderColor: '#ffffff'
+                borderColor: '#2C2C4E' /* Border chart menyesuaikan warna kartu */
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                legend: { 
+                    position: 'bottom', 
+                    labels: { 
+                        boxWidth: 10, 
+                        font: { size: 10 },
+                        color: '#B0B0C4' /* Warna teks legenda */
+                    } 
+                }
             }
         }
     });
 
     const formatRupiah = (n) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(n);
 
-    // --- 2. FUNGSI LOGIKA TAMPILAN (RENDER) ---
+    // --- 2. FUNGSI LOGIKA UTAMA ---
+
+    function initApp() {
+        transactions = JSON.parse(localStorage.getItem('fin_tracker_2025_v2')) || [];
+        updateCategoryOptions(); 
+        renderApp(); 
+    }
+
     function renderApp() {
         const month = parseInt(document.getElementById('monthSelect').value);
         const dataBulanIni = transactions.filter(t => t.month === month);
@@ -216,20 +310,15 @@
         const listEl = document.getElementById('trxList');
         listEl.innerHTML = '';
 
-        // Objek untuk menampung total per kategori untuk chart
-        // Kita gabung semua kategori income dan expense jadi satu objek tracker
         let chartDataTracker = {};
 
         dataBulanIni.forEach(t => {
-            // Hitung Total
             if(t.type === 'income') totIn += t.amount;
             else totOut += t.amount;
 
-            // Masukkan ke data Chart
             if (!chartDataTracker[t.category]) chartDataTracker[t.category] = { amount: 0, type: t.type };
             chartDataTracker[t.category].amount += t.amount;
 
-            // Render List
             const li = document.createElement('li');
             const color = t.type === 'income' ? 'c-in' : 'c-out';
             const sign = t.type === 'income' ? '+' : '-';
@@ -246,24 +335,20 @@
             listEl.prepend(li);
         });
 
-        if(dataBulanIni.length === 0) listEl.innerHTML = '<p style="text-align:center; color:#ccc; margin-top:20px">Belum ada data.</p>';
+        if(dataBulanIni.length === 0) listEl.innerHTML = '<p style="text-align:center; color:#555; margin-top:20px">Belum ada data.</p>';
 
-        // Update Kartu
         document.getElementById('totalIncome').innerText = formatRupiah(totIn);
         document.getElementById('totalExpense').innerText = formatRupiah(totOut);
         document.getElementById('totalBalance').innerText = formatRupiah(totIn - totOut);
 
-        // Update Chart (Menggabungkan Income & Expense dalam satu lingkaran)
         updateChart(chartDataTracker);
     }
 
     function updateChart(dataTracker) {
-        // Kita harus memilah mana yang masuk array Labels, Data, dan Colors
         let labels = [];
         let data = [];
         let bgColors = [];
 
-        // Loop Income Categories dulu (supaya urut di chart)
         incomeCats.forEach((cat, index) => {
             if(dataTracker[cat] && dataTracker[cat].amount > 0) {
                 labels.push(cat);
@@ -272,7 +357,6 @@
             }
         });
 
-        // Loop Expense Categories
         expenseCats.forEach((cat, index) => {
             if(dataTracker[cat] && dataTracker[cat].amount > 0) {
                 labels.push(cat);
@@ -281,11 +365,10 @@
             }
         });
 
-        // Jika kosong, beri chart dummy abu-abu
         if(data.length === 0) {
             myChart.data.labels = ['Kosong'];
             myChart.data.datasets[0].data = [1];
-            myChart.data.datasets[0].backgroundColor = ['#e3e6f0'];
+            myChart.data.datasets[0].backgroundColor = ['#444466']; /* Warna chart kosong yang lebih gelap */
         } else {
             myChart.data.labels = labels;
             myChart.data.datasets[0].data = data;
@@ -296,11 +379,10 @@
 
     // --- 3. FUNGSI INTERAKSI FORM ---
     
-    // Fungsi agar dropdown kategori berubah sesuai Tipe (Income/Expense)
     function updateCategoryOptions() {
         const type = document.getElementById('tType').value;
         const catSelect = document.getElementById('tCategory');
-        catSelect.innerHTML = ''; // Kosongkan dulu
+        catSelect.innerHTML = ''; 
 
         let options = type === 'income' ? incomeCats : expenseCats;
 
@@ -327,7 +409,6 @@
             });
             localStorage.setItem('fin_tracker_2025_v2', JSON.stringify(transactions));
             
-            // Reset Form (kecuali tipe dan kategori biar enak kalau mau input banyak)
             document.getElementById('tName').value = '';
             document.getElementById('tAmount').value = '';
             renderApp();
@@ -343,18 +424,12 @@
     }
 
     function resetData() {
-        if(confirm('Hapus SEMUA data?')) {
+        if(confirm('Hapus SEMUA data? Ini tidak dapat dikembalikan.')) {
             transactions = [];
             localStorage.setItem('fin_tracker_2025_v2', JSON.stringify([]));
             renderApp();
         }
     }
-
-    // Jalankan saat load
-    window.onload = function() {
-        updateCategoryOptions(); // Isi dropdown kategori awal
-        renderApp(); // Render tampilan
-    };
 
 </script>
 
