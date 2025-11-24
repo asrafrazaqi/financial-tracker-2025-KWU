@@ -45,16 +45,16 @@
             gap: 10px; 
         }
         .app-logo {
-            height: 150px; /* Dikecilkan agar lebih rapi di header Dark Mode */
+            height: 120px; 
             width: auto; 
         }
-        h1 { font-size: 3rem; color: var(--primary); }
+        h1 { font-size: 2rem; color: var(--primary); }
         select { 
             padding: 8px 12px; 
             border-radius: 8px; 
             border: 1px solid #444; 
             cursor: pointer; 
-            background: var(--bg); /* Select mengikuti background gelap */
+            background: var(--bg); 
             color: var(--text-light);
         }
 
@@ -99,7 +99,7 @@
             margin-bottom: 20px;
         }
         .box h2 { 
-            border-bottom: 1px solid #444; /* Garis pemisah lebih gelap */
+            border-bottom: 1px solid #444; 
             padding-bottom: 10px; 
             margin-bottom: 20px; 
             font-size: 1.1rem; 
@@ -114,14 +114,14 @@
             border: 1px solid #444; 
             border-radius: 8px; 
             margin-bottom: 10px; 
-            background: var(--bg); /* Input mengikuti background gelap */
+            background: var(--bg); 
             color: var(--text-light);
         }
         button.btn-save {
             width: 100%; 
             padding: 12px; 
             background: var(--primary); 
-            color: #1A1A2E; /* Teks tombol gelap agar kontras */
+            color: #1A1A2E; 
             border: none; 
             border-radius: 8px; 
             font-weight: 600; 
@@ -137,14 +137,14 @@
             justify-content: space-between; 
             align-items: center;
             padding: 10px 0; 
-            border-bottom: 1px solid #3A3A5E; /* Garis pemisah list */
+            border-bottom: 1px solid #3A3A5E; 
         }
         li:last-child { border: none; }
         .li-left h4 { font-size: 0.9rem; color: var(--text-light); }
         .li-left span { font-size: 0.75rem; color: var(--text-muted); }
         .btn-del {
             margin-left: 10px; 
-            background: #4E2C2C; /* Background tombol hapus gelap */
+            background: #4E2C2C; 
             color: var(--danger); 
             border: none;
             padding: 5px 8px; 
@@ -157,6 +157,16 @@
 
         /* CHART */
         .chart-wrap { position: relative; height: 300px; width: 100%; }
+
+        /* FOOTER/COPYRIGHT STYLING */
+        footer {
+            margin-top: 30px;
+            padding: 15px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid #3A3A5E;
+        }
     </style>
 </head>
 <body onload="initApp()">
@@ -250,6 +260,9 @@
     </div>
 </div>
 
+<footer style="color:var(--text-muted);">
+    &copy; 2025. Dibuat oleh **Kelompok4KWU UNS**.
+</footer>
 <script>
     // --- 1. SETUP DATA & KONFIGURASI ---
     
@@ -368,7 +381,7 @@
         if(data.length === 0) {
             myChart.data.labels = ['Kosong'];
             myChart.data.datasets[0].data = [1];
-            myChart.data.datasets[0].backgroundColor = ['#444466']; /* Warna chart kosong yang lebih gelap */
+            myChart.data.datasets[0].backgroundColor = ['#444466']; 
         } else {
             myChart.data.labels = labels;
             myChart.data.datasets[0].data = data;
